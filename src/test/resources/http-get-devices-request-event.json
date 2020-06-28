@@ -1,0 +1,111 @@
+{
+    "path": "/getDevicesBySector",
+    "headers": {
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "none",
+        "accept-language": "en-US,en;q=0.9,es-419;q=0.8,es;q=0.7",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36",
+        "X-Forwarded-Proto": "https",
+        "Host": "1234.execute-api.us-east-1.amazonaws.com",
+        "sec-fetch-user": "?1",
+        "X-Forwarded-Port": "443",
+        "X-Amzn-Trace-Id": "Root=1-5e5afdf6-43cd21d0c5bc9a8dde075dfe",
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "upgrade-insecure-requests": "1",
+        "X-Forwarded-For": "1.2.3.4",
+        "cache-control": "max-age=0",
+        "accept-encoding": "gzip, deflate, br",
+        "sec-fetch-dest": "document"
+    },
+    "pathParameters": null,
+    "isBase64Encoded": false,
+    "multiValueQueryStringParameters": {
+        "sectorId": [
+            "SALA"
+        ]
+    },
+    "multiValueHeaders": {
+        "sec-fetch-mode": [
+            "navigate"
+        ],
+        "sec-fetch-site": [
+            "none"
+        ],
+        "accept-language": [
+            "en-US,en;q=0.9,es-419;q=0.8,es;q=0.7"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ],
+        "Host": [
+            "1234.execute-api.us-east-1.amazonaws.com"
+        ],
+        "sec-fetch-user": [
+            "?1"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5e5afdf6-43cd21d0c5bc9a8dde075dfe"
+        ],
+        "accept": [
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+        ],
+        "upgrade-insecure-requests": [
+            "1"
+        ],
+        "X-Forwarded-For": [
+            "1.2.3.4"
+        ],
+        "cache-control": [
+            "max-age=0"
+        ],
+        "accept-encoding": [
+            "gzip, deflate, br"
+        ],
+        "sec-fetch-dest": [
+            "document"
+        ]
+    },
+    "requestContext": {
+        "resourceId": "dmhp5p",
+        "resourcePath": "/getDevicesBySector",
+        "httpMethod": "GET",
+        "extendedRequestId": "IryekHoBIAMFpig=",
+        "requestTime": "01/Mar/2020:00:12:38 +0000",
+        "path": "/development/getDevicesBySector",
+        "accountId": "1234567890",
+        "protocol": "HTTP/1.1",
+        "stage": "development",
+        "domainPrefix": "1234",
+        "requestTimeEpoch": 1583021558740,
+        "requestId": "2c24b8aa-515f-4870-a450-e1dc6f9b8cd4",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "1.2.3.4",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36",
+            "user": null
+        },
+        "domainName": "1234.execute-api.us-east-1.amazonaws.com",
+        "apiId": "1234"
+    },
+    "resource": "/getDevicesBySector",
+    "httpMethod": "GET",
+    "queryStringParameters": {
+        "sectorId": "COMEDOR"
+    },
+    "stageVariables": null,
+    "body": null
+}

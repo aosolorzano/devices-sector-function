@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Devices Lambda Function
+
+Resources:
+  #####################################################
+  #################### API GATEWAY ####################
+  #####################################################
+  DevicesBySectorApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: 'Devices by Sector REST'
+      EndpointConfiguration: REGIONAL
+      DefinitionBody: # Necessary to dynamically referencing AWS region and Lambda Function ARN in the swagger file.
+        Fn::Transform:
+          Name: 'AWS::Include'
+          Parameters:
+            Location: swagger.yaml
+      StageName: 'v010'
+      Variables: # To create stage variables
+        LambdaFunctionName: !Ref DevicesBySectorFunction
+        
+        
+  #####################################################
+  ################## LAMBDA FUNCTION ##################
+  #####################################################
+  DevicesBySectorFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: 'devices-sector-function'
+      Description: 'Funcion Lambda que retorna dispositivos electronicos asociados a un determinado sector.'
+      CodeUri: target/devices-sector-function-0.1.0.jar
+      Handler: com.amazonws.lambda.function.example.handler.DeviceRequestHandler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Timeout: 20
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: Dispositivos
+      Events:
+        GetDevices:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: '/getDevicesBySector'
+            Method: get
+            RestApiId: !Ref DevicesBySectorApi
+
+
+
+#####################################################
+###################### OUTPUTS ######################
+#####################################################        
+Outputs:
+  DevicesBySectorFunctionArn:
+    Description: 'Devices by Sector Lambda Function ARN'
+    Value: !GetAtt DevicesBySectorFunction.Arn
+    
+  DevicesBySectorApiURL:
+      Description: 'Devices by Sector API endpoint URL'
+      Value: !Sub 'https://${DevicesBySectorApi}.execute-api.${AWS::Region}.amazonaws.com/v010/getDevicesBySector'

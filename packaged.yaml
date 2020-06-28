@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Devices Lambda Function
+Resources:
+  DevicesBySectorApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: Devices by Sector REST
+      EndpointConfiguration: REGIONAL
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: s3://devices-sector-function-sam-packages/d6d53ec05cef49e42ba4272b93888433
+      StageName: v010
+      Variables:
+        LambdaFunctionName:
+          Ref: DevicesBySectorFunction
+  DevicesBySectorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: devices-sector-function
+      Description: Funcion Lambda que retorna dispositivos electronicos asociados
+        a un determinado sector.
+      CodeUri: s3://devices-sector-function-sam-packages/15c1939100ac20132facd92702e432ef
+      Handler: com.amazonws.lambda.function.example.handler.DeviceRequestHandler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Timeout: 20
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: Dispositivos
+      Events:
+        GetDevices:
+          Type: Api
+          Properties:
+            Path: /getDevicesBySector
+            Method: get
+            RestApiId:
+              Ref: DevicesBySectorApi
+Outputs:
+  DevicesBySectorFunctionArn:
+    Description: Devices by Sector Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - DevicesBySectorFunction
+      - Arn
+  DevicesBySectorApiURL:
+    Description: Devices by Sector API endpoint URL
+    Value:
+      Fn::Sub: https://${DevicesBySectorApi}.execute-api.${AWS::Region}.amazonaws.com/v010/getDevicesBySector

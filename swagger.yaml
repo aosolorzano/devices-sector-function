@@ -1,0 +1,68 @@
+---
+swagger: '2.0'
+info:
+  version: '010'
+  title: 'devices-function-apigateway'
+basePath: '/v010'
+schemes:
+- 'https'
+
+paths:
+  /getDevicesBySector:
+    get:
+      produces:
+        - 'application/json'
+      parameters:
+        - in: query # THEY MAY BE: PATH, HEADER OR COOKIE.
+          name: sectorId
+          schema:
+            type: string
+          required: true
+          description: 'ID where electronic devices are located.'
+      responses:
+        200:
+          description: 'OK'
+          headers:
+            Content-Type:
+              type: 'application/json'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        500:
+          description: 'Internal Server Error'
+          content: {}
+      
+      x-amazon-apigateway-request-validator: params-only
+      x-amazon-apigateway-integration:
+        type: 'AWS_PROXY'
+        uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DevicesBySectorFunction.Arn}/invocations
+        httpMethod: 'POST' # MUST BE POST FOR API INTEGRATION
+        passthroughBehavior: 'WHEN_NO_MATCH'
+        responses:
+          default:
+            statusCode: '200'
+  
+x-amazon-apigateway-request-validators:
+  params-only:
+    validateRequestBody: false
+    validateRequestParameters: true
+    
+components:
+  schemas:
+    Device:
+      type: object
+      properties:
+        id:
+          type: number
+        sectorId:
+          type: string
+        nombre:
+          type: string
+        tipo:
+          type: string
+        estado:
+          type: string      
